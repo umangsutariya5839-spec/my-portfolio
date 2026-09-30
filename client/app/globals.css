@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Theme. Every colour and font on the site comes from these variables.
+   To restyle the site, change them here and nothing else.
+   ------------------------------------------------------------------ */
+:root {
+  --paper: 247 244 239;        /* page background, warm ivory  #F7F4EF */
+  --card: 255 255 255;         /* cards and panels             #FFFFFF */
+  --ink: 28 27 25;             /* main text                    #1C1B19 */
+  --muted: 107 102 94;         /* secondary text               #6B665E */
+  --line: 226 220 210;         /* borders and rules            #E2DCD2 */
+  --accent: 176 84 48;         /* terracotta accent            #B05430 */
+  --accent-soft: 243 228 218;  /* tinted accent background     #F3E4DA */
+  --font-display: "Playfair Display";
+  --font-body: "DM Sans";
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-paper font-body text-ink antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-ink;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: rgb(var(--accent));
+    color: rgb(var(--card));
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .section {
+    @apply py-20 sm:py-28;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.22em] text-accent;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply h-px w-8 bg-accent;
+  }
+
+  .section-title {
+    @apply mt-4 text-[clamp(2rem,4.5vw,3.25rem)];
+  }
+
+  .page-title {
+    @apply mt-4 text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.05];
+  }
+
+  /* First section on an inner page: clears the fixed navigation bar. */
+  .page-top {
+    @apply pb-20 pt-32 sm:pb-28 sm:pt-40;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.95rem] font-medium transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-paper hover:bg-accent;
+  }
+  .btn-ghost {
+    @apply btn border border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-paper;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line bg-card px-3.5 py-1.5 text-sm text-ink/80;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-card;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-line bg-card px-4 py-3 text-[0.95rem] text-ink placeholder:text-muted/70 transition-colors focus:border-accent focus:outline-none;
+  }
+
+  .link-underline {
+    @apply underline decoration-accent/40 decoration-1 underline-offset-4 transition-colors hover:decoration-accent;
+  }
+}
+
+/* A service opened from a home-page link is outlined so the visitor sees which one they picked. */
+.service-card:target {
+  border-color: rgb(var(--accent));
+  box-shadow: 0 0 0 3px rgb(var(--accent) / 0.18);
+}
+
+/* One gentle entrance for content blocks. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .rise-2 {
+    animation-delay: 0.12s;
+  }
+  .rise-3 {
+    animation-delay: 0.24s;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
